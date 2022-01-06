@@ -21,6 +21,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func setupUI(){
         outerView.makeRoundedCornersWith(radius: 8.0)
+        categoryImageView.makeRoundedCorners()
     }
     
     func setData(category: Category){

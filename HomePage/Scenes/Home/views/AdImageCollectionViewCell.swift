@@ -13,7 +13,8 @@ class AdImageCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        adImageView.makeRoundedCornersWith(radius: 8.0)
     }
     
     func setAdImage(offer: Offer){

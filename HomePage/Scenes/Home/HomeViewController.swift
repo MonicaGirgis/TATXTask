@@ -9,7 +9,8 @@ import UIKit
 import Kingfisher
 
 class HomeViewController: UIViewController {
-
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     enum SectionHeaders{
@@ -44,7 +45,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         fetchData()
     }
@@ -54,6 +55,10 @@ class HomeViewController: UIViewController {
         homeCollectionView.register(UINib(nibName: String(describing: HorizontalCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: HorizontalCollectionViewCell.self))
         homeCollectionView.register(UINib(nibName: String(describing: StoreCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: StoreCollectionViewCell.self))
         homeCollectionView.register(UINib(nibName: String(describing: LinesCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: LinesCollectionViewCell.self))
+        homeCollectionView.register(UINib(nibName: String(describing: HeaderCollectionReusableView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: HeaderCollectionReusableView.self))
+        searchBar.makeRoundedCornersWith(radius: 6.0)
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.backgroundColor = .white
     }
     
     private func fetchData(){
@@ -112,16 +117,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         guard sections[section] == .Line, data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
-             return 0
+            return 0
         }
-            return 8
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         guard sections[section] == .Line, data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
-             return 0
+            return 0
         }
-            return 8
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -132,32 +137,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return CGSize(width: collectionView.frame.width, height: 200)
         case .Line:
             guard data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
-                 return CGSize(width: collectionView.frame.width, height: 200)
+                return CGSize(width: collectionView.frame.width, height: 330)
             }
-                return CGSize(width: collectionView.frame.width/2 - 4, height: 50)
-        
+            return CGSize(width: collectionView.frame.width/2 - 4, height: 330)
+            
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        guard sections[indexPath.section] != .Ads else { assert(false, "")}
-//        let headerView = UICollectionReusableView(frame:CGRect(x: 0, y: 0, width: collectionView.frame.width / 1.25, height: 34))
-//        let title = UILabel(frame:CGRect(x: 8, y: 0, width: collectionView.frame.width / 1.25, height: 34))
-//        title.textColor =  #colorLiteral(red: 0.1994126141, green: 0.4209131598, blue: 0.4094862938, alpha: 1)
-//        title.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
-//        switch sections[indexPath.section]{
-//        case .Categories:
-//            title.text = "Shop by category"
-//        default:
-//            title.text = data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].titleEn
-//        }
-//        headerView.addSubview(title)
-//        headerView.backgroundColor = .systemGray6
-//        return headerView
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        guard sections[section] != .Ads else { return CGSize(width: collectionView.frame.width, height: 0)}
-//        return CGSize(width: collectionView.frame.width, height: 32)
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard sections[indexPath.section] != .Ads else { assert(false, "")}
+        
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: HeaderCollectionReusableView.self), for: indexPath) as? HeaderCollectionReusableView{
+            switch sections[indexPath.section]{
+            case .Categories:
+                sectionHeader.setData(title: "Shop by category")
+            default:
+                sectionHeader.setData(title: data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].titleEn ?? "")
+            }
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard sections[section] != .Ads else { return CGSize(width: collectionView.frame.width, height: 0)}
+        return CGSize(width: collectionView.frame.width, height: 48)
+    }
 }
