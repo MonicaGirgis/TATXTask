@@ -156,7 +156,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch sections[indexPath.section]{
-        case .Ads, .Categories:
+        case .Ads:
+            return CGSize(width: collectionView.frame.width, height: 400)
+        case .Categories:
             return CGSize(width: collectionView.frame.width, height: 200)
         case .Search:
             return CGSize(width: collectionView.frame.width, height: 160)

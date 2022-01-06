@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="g9R-tl-s3P">
-                        <rect key="frame" x="0.0" y="0.0" width="515" height="240"/>
+                        <rect key="frame" x="12" y="8" width="491" height="232"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bk1-ki-3Oz">
                             <size key="itemSize" width="128" height="128"/>
@@ -43,10 +43,10 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="g9R-tl-s3P" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3Oy-j0-dBB"/>
-                <constraint firstAttribute="trailing" secondItem="g9R-tl-s3P" secondAttribute="trailing" id="8fC-nz-kh5"/>
+                <constraint firstItem="g9R-tl-s3P" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="3Oy-j0-dBB"/>
+                <constraint firstAttribute="trailing" secondItem="g9R-tl-s3P" secondAttribute="trailing" constant="12" id="8fC-nz-kh5"/>
                 <constraint firstItem="g0l-9R-UNH" firstAttribute="top" secondItem="g9R-tl-s3P" secondAttribute="bottom" id="Heb-km-t6A"/>
-                <constraint firstItem="g9R-tl-s3P" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Hq9-4X-WsP"/>
+                <constraint firstItem="g9R-tl-s3P" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="Hq9-4X-WsP"/>
                 <constraint firstItem="g0l-9R-UNH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PgD-eZ-BLt"/>
                 <constraint firstAttribute="bottom" secondItem="g0l-9R-UNH" secondAttribute="bottom" constant="16" id="WwU-Lm-hho"/>
             </constraints>

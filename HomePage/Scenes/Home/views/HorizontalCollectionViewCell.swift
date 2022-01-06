@@ -36,7 +36,7 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
         self.categories = categories
         let count = offers?.count ?? (categories?.count ?? 0) % 4 == 0 ? ((categories?.count ?? 0) / 4) : ((categories?.count ?? 0) / 4 + 1)
         if count == 1{
-            //pageController.isHidden = true
+            pageController.isHidden = true
         }
         pageController.drawer = ExtendedDotDrawer(numberOfPages: count, height: 8,space: 4, indicatorColor: .yellow, dotsColor: .lightGray, isBordered: false, borderColor: .lightGray, borderWidth: 1, indicatorBorderColor: .yellow, indicatorBorderWidth: 1)
     }
@@ -53,7 +53,7 @@ extension HorizontalCollectionViewCell: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch sectionName{
         case .Ads:
-            return 17
+            return offers?.count ?? 0
         default:
             return categories?.count ?? 0
         }
@@ -63,10 +63,9 @@ extension HorizontalCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         switch sectionName{
         case .Ads:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: AdImageCollectionViewCell.self), for: indexPath) as! AdImageCollectionViewCell
-//            if let offers = offers{
-//                cell.setAdImage(offer: offers[indexPath.row])
-//            }
-            cell.setImage()
+            if let offers = offers{
+                cell.setAdImage(offer: offers[indexPath.row])
+            }
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCollectionViewCell.self), for: indexPath) as! CategoryCollectionViewCell

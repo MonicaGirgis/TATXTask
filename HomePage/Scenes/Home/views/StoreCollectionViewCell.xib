@@ -19,25 +19,25 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BUt-GI-bTH">
                         <rect key="frame" x="4" y="4" width="448" height="200"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="Wp6-Po-GOe"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fl4-QP-c26">
-                        <rect key="frame" x="4" y="212" width="448" height="21"/>
+                        <rect key="frame" x="16" y="212" width="448" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fV-bU-VHN">
-                        <rect key="frame" x="4" y="233" width="448" height="21"/>
+                        <rect key="frame" x="16" y="233" width="448" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47M-k6-nnq">
-                        <rect key="frame" x="70" y="258" width="382" height="20"/>
+                        <rect key="frame" x="82" y="258" width="370" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                         </buttonConfiguration>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msq-co-xh2">
-                        <rect key="frame" x="4" y="258" width="50" height="20"/>
+                        <rect key="frame" x="16" y="258" width="50" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="s8G-WC-fwf"/>
                         </constraints>
@@ -72,6 +72,7 @@
                 <constraint firstItem="Msq-co-xh2" firstAttribute="bottom" secondItem="47M-k6-nnq" secondAttribute="bottom" id="Bhh-6g-cXa"/>
                 <constraint firstItem="BUt-GI-bTH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="JnF-lw-JYh"/>
                 <constraint firstItem="6fV-bU-VHN" firstAttribute="top" secondItem="fl4-QP-c26" secondAttribute="bottom" id="JqM-NW-PL7"/>
+                <constraint firstItem="47M-k6-nnq" firstAttribute="trailing" secondItem="BUt-GI-bTH" secondAttribute="trailing" id="LHe-hf-fLv"/>
                 <constraint firstItem="Msq-co-xh2" firstAttribute="top" secondItem="47M-k6-nnq" secondAttribute="top" id="ScG-oB-dMV"/>
                 <constraint firstItem="BUt-GI-bTH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="TZu-dO-z6U"/>
                 <constraint firstItem="6fV-bU-VHN" firstAttribute="trailing" secondItem="fl4-QP-c26" secondAttribute="trailing" id="VZl-lZ-GHi"/>
@@ -81,11 +82,10 @@
                 <constraint firstItem="Msq-co-xh2" firstAttribute="leading" secondItem="6fV-bU-VHN" secondAttribute="leading" id="dSv-LV-81T"/>
                 <constraint firstItem="47M-k6-nnq" firstAttribute="top" secondItem="6fV-bU-VHN" secondAttribute="bottom" constant="4" id="h8C-Xy-N8L"/>
                 <constraint firstAttribute="trailing" secondItem="BUt-GI-bTH" secondAttribute="trailing" constant="4" id="ij5-9S-sAh"/>
-                <constraint firstItem="fl4-QP-c26" firstAttribute="trailing" secondItem="BUt-GI-bTH" secondAttribute="trailing" id="nmE-px-Y4a"/>
-                <constraint firstItem="47M-k6-nnq" firstAttribute="trailing" secondItem="6fV-bU-VHN" secondAttribute="trailing" id="tzN-Z9-xbh"/>
+                <constraint firstItem="fl4-QP-c26" firstAttribute="trailing" secondItem="BUt-GI-bTH" secondAttribute="trailing" constant="12" id="nmE-px-Y4a"/>
                 <constraint firstItem="csI-FG-Q1G" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="uXt-ys-8vl"/>
                 <constraint firstItem="47M-k6-nnq" firstAttribute="leading" secondItem="Msq-co-xh2" secondAttribute="trailing" constant="16" id="wOE-yI-jq6"/>
-                <constraint firstItem="fl4-QP-c26" firstAttribute="leading" secondItem="BUt-GI-bTH" secondAttribute="leading" id="zBP-D4-E6D"/>
+                <constraint firstItem="fl4-QP-c26" firstAttribute="leading" secondItem="BUt-GI-bTH" secondAttribute="leading" constant="12" id="zBP-D4-E6D"/>
             </constraints>
             <size key="customSize" width="456" height="811"/>
             <connections>
@@ -100,6 +100,9 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
