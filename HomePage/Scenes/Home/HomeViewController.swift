@@ -10,7 +10,7 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var homeTableView: UITableView!
+    @IBOutlet weak var homeCollectionView: UICollectionView!
     
     enum SectionHeaders{
         case Ads
@@ -36,13 +36,12 @@ class HomeViewController: UIViewController {
                 sectionsCountWithoutLinesCount+=1
             }
             
-            if !data.result.main.isEmpty{
-                data.result.main.forEach { _ in
-                    sections.append(.Line)
-                }
+            data.result.main.forEach { _ in
+                sections.append(.Line)
             }
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,9 +50,10 @@ class HomeViewController: UIViewController {
     }
     
     private func setupUI(){
-        homeTableView.isHidden = true
-        homeTableView.register(UINib(nibName: String(describing: CollectionTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: CollectionTableViewCell.self))
-        homeTableView.register(UINib(nibName: String(describing: LinesCollectionTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: LinesCollectionTableViewCell.self))
+        homeCollectionView.isHidden = true
+        homeCollectionView.register(UINib(nibName: String(describing: HorizontalCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: HorizontalCollectionViewCell.self))
+        homeCollectionView.register(UINib(nibName: String(describing: StoreCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: StoreCollectionViewCell.self))
+        homeCollectionView.register(UINib(nibName: String(describing: LinesCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: LinesCollectionViewCell.self))
     }
     
     private func fetchData(){
@@ -61,8 +61,8 @@ class HomeViewController: UIViewController {
             switch result{
             case .success(let data):
                 self?.data = data
-                self?.homeTableView.reloadData()
-                self?.homeTableView.isHidden = false
+                self?.homeCollectionView.reloadData()
+                self?.homeCollectionView.isHidden = false
             case .failure(let error):
                 print(error)
             }
@@ -70,54 +70,94 @@ class HomeViewController: UIViewController {
     }
 }
 
-//MARK:- UITableViewDelegate, UITableViewDataSource
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
+//MARK:- UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(section)
+        print(sectionsCountWithoutLinesCount)
+        return (sections[section] == .Line && data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical") ? (data?.result.main[section - sectionsCountWithoutLinesCount].stores.count ?? 0) : 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section]{
         case .Ads:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CollectionTableViewCell.self), for: indexPath) as! CollectionTableViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalCollectionViewCell.self), for: indexPath) as! HorizontalCollectionViewCell
             cell.setData(section: .Ads, offers: data?.result.offers)
             return cell
         case .Categories:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CollectionTableViewCell.self), for: indexPath) as! CollectionTableViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalCollectionViewCell.self), for: indexPath) as! HorizontalCollectionViewCell
             cell.setData(section: .Categories, categories: data?.result.categories)
             return cell
         case .Line:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LinesCollectionTableViewCell.self), for: indexPath) as! LinesCollectionTableViewCell
-            if let data = data{
-                cell.setData(main: data.result.main[indexPath.section - sectionsCountWithoutLinesCount])
+            switch data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].viewType{
+            case "vertical":
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: StoreCollectionViewCell.self), for: indexPath) as! StoreCollectionViewCell
+                if let data = data{
+                    cell.setData(store: data.result.main[indexPath.section - sectionsCountWithoutLinesCount].stores[indexPath.row])
+                }
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: LinesCollectionViewCell.self), for: indexPath) as! LinesCollectionViewCell
+                if let data = data{
+                    cell.setData(main: data.result.main[indexPath.section - sectionsCountWithoutLinesCount])
+                }
+                return cell
             }
-            return cell
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame:CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
-        let title = UILabel(frame:CGRect(x: 8, y: 0, width: tableView.frame.width / 1.25, height: 34))
-        title.textColor =  #colorLiteral(red: 0.1994126141, green: 0.4209131598, blue: 0.4094862938, alpha: 1)
-        title.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
-        switch sections[section]{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        guard sections[section] == .Line, data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
+             return 0
+        }
+            return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        guard sections[section] == .Line, data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
+             return 0
+        }
+            return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch sections[indexPath.section]{
         case .Ads:
-            return nil
+            return CGSize(width: collectionView.frame.width, height: 200)
         case .Categories:
-            title.text = "Shop by category"
-        default:
-            title.text = data?.result.main[section - sectionsCountWithoutLinesCount].titleEn
+            return CGSize(width: collectionView.frame.width, height: 200)
+        case .Line:
+            guard data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
+                 return CGSize(width: collectionView.frame.width, height: 200)
+            }
+                return CGSize(width: collectionView.frame.width/2 - 4, height: 50)
+        
         }
-        headerView.addSubview(title)
-        headerView.backgroundColor = .systemGray6
-        return headerView
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
-    }
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        guard sections[indexPath.section] != .Ads else { assert(false, "")}
+//        let headerView = UICollectionReusableView(frame:CGRect(x: 0, y: 0, width: collectionView.frame.width / 1.25, height: 34))
+//        let title = UILabel(frame:CGRect(x: 8, y: 0, width: collectionView.frame.width / 1.25, height: 34))
+//        title.textColor =  #colorLiteral(red: 0.1994126141, green: 0.4209131598, blue: 0.4094862938, alpha: 1)
+//        title.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+//        switch sections[indexPath.section]{
+//        case .Categories:
+//            title.text = "Shop by category"
+//        default:
+//            title.text = data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].titleEn
+//        }
+//        headerView.addSubview(title)
+//        headerView.backgroundColor = .systemGray6
+//        return headerView
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        guard sections[section] != .Ads else { return CGSize(width: collectionView.frame.width, height: 0)}
+//        return CGSize(width: collectionView.frame.width, height: 32)
+//    }
 }
