@@ -16,6 +16,7 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
     var sectionName: HomeViewController.SectionHeaders?
     var offers: [Offer]?
     var categories: [Category]?
+    var didScroll: (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,9 +35,14 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
         self.categories = categories
         let count = offers?.count ?? (categories?.count ?? 0) % 4 == 0 ? ((categories?.count ?? 0) / 4) : ((categories?.count ?? 0) / 4 + 1)
         if count == 1{
-            pageController.isHidden = true
+            //pageController.isHidden = true
         }
-        pageController.drawer = ExtendedDotDrawer(numberOfPages: count, height: 8,space: 4, indicatorColor: .yellow, dotsColor: .lightGray, isBordered: false, borderColor: .lightGray, borderWidth: 1, indicatorBorderColor: .yellow, indicatorBorderWidth: 1)
+        pageController.drawer = ExtendedDotDrawer(numberOfPages: 17, height: 8,space: 4, indicatorColor: .yellow, dotsColor: .lightGray, isBordered: false, borderColor: .lightGray, borderWidth: 1, indicatorBorderColor: .yellow, indicatorBorderWidth: 1)
+    }
+    
+    func scrollToIndex(index: Int){
+        guard sectionName == .Ads else {return}
+        collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
     }
 }
 
@@ -46,7 +52,7 @@ extension HorizontalCollectionViewCell: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch sectionName{
         case .Ads:
-            return offers?.count ?? 0
+            return 17
         default:
             return categories?.count ?? 0
         }
@@ -56,6 +62,10 @@ extension HorizontalCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         switch sectionName{
         case .Ads:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: AdImageCollectionViewCell.self), for: indexPath) as! AdImageCollectionViewCell
+//            if let offers = offers{
+//                cell.setAdImage(offer: offers[indexPath.row])
+//            }
+            cell.setImage()
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CategoryCollectionViewCell.self), for: indexPath) as! CategoryCollectionViewCell
@@ -99,5 +109,7 @@ extension HorizontalCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         
         let index = Int(round(offSet/width))
         pageController.setPage(index)
+        guard scrollView.isDragging else {return}
+        didScroll?()
     }
 }

@@ -6,7 +6,6 @@ target 'HomePage' do
   use_frameworks!
 
   # Pods for HomePage
-pod 'AdvancedPageControl'
 pod 'Kingfisher', '~> 7.0.0'
-
+pod 'AdvancedPageControl'
 end

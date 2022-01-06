@@ -20,4 +20,8 @@ class AdImageCollectionViewCell: UICollectionViewCell {
     func setAdImage(offer: Offer){
         adImageView.kf.setImage(with: URL(string: Bundle.main.offersImagesURL + "/" + (offer.image ?? "")))
     }
+    
+    func setImage(){
+        adImageView.image = UIImage(systemName: "circle.fill")
+    }
 }

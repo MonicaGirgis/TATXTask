@@ -146,7 +146,7 @@
 		4A6951EB2B8B088B5F62F731AF32E55D /* Kingfisher-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-prefix.pch"; sourceTree = "<group>"; };
 		4C9E8391CC00C7C72F0A6AD9A291FE1E /* Pods-HomePage-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HomePage-acknowledgements.markdown"; sourceTree = "<group>"; };
 		4E9BFF201D38F95AA62D23ECC862A741 /* ImageProgressive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProgressive.swift; path = Sources/Image/ImageProgressive.swift; sourceTree = "<group>"; };
-		506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AdvancedPageControl; path = AdvancedPageControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AdvancedPageControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52554E1C9731D5352FDE9E63F8C5466B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		52AA1C89636E2FF32BE5E778725D5D2E /* AdvancedPageControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AdvancedPageControl.debug.xcconfig; sourceTree = "<group>"; };
 		5457A9C26DCF2B6225E69A7071AAA4C2 /* ImageDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDownloader.swift; path = Sources/Networking/ImageDownloader.swift; sourceTree = "<group>"; };
@@ -180,12 +180,12 @@
 		9807C5B1C816A78F38A7255D3E1DDF47 /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Image/Filter.swift; sourceTree = "<group>"; };
 		98B2475A80FEF3DAD15E40FECB53F616 /* DiskStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DiskStorage.swift; path = Sources/Cache/DiskStorage.swift; sourceTree = "<group>"; };
 		9C71DAC9C88D6663DEE0735D9F90E1D9 /* KFImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KFImage.swift; path = Sources/SwiftUI/KFImage.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F88851C548C24F095DE047915B535F6 /* AdvancedPageControl-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AdvancedPageControl-Info.plist"; sourceTree = "<group>"; };
 		9FC09B3B92B55AA3554752E08C5D5A79 /* CallbackQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CallbackQueue.swift; path = Sources/Utility/CallbackQueue.swift; sourceTree = "<group>"; };
 		A5C4EB7510492CCFD91792BA6B9AD0CE /* SlideDrawer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideDrawer.swift; path = AdvancedPageControl/Classes/Drawers/SlideDrawer.swift; sourceTree = "<group>"; };
 		ADEA06E402E73AC3FC9E6CBF3525C3FE /* Delegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Delegate.swift; path = Sources/Utility/Delegate.swift; sourceTree = "<group>"; };
-		B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods-HomePage */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-HomePage"; path = Pods_HomePage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods_HomePage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomePage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58F31DD7EA589C349FA9B2D63736FB7 /* GIFAnimatedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFAnimatedImage.swift; path = Sources/Image/GIFAnimatedImage.swift; sourceTree = "<group>"; };
 		BB675C4B885929F3505DA0FC9695ADC9 /* TVMonogramView+Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TVMonogramView+Kingfisher.swift"; path = "Sources/Extensions/TVMonogramView+Kingfisher.swift"; sourceTree = "<group>"; };
 		BBEC4D08A9E256CB33F80ED8F7141397 /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/Cache/ImageCache.swift; sourceTree = "<group>"; };
@@ -263,9 +263,9 @@
 		28FB69BE15A56358C8F0FFFEF7683745 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl */,
+				506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl.framework */,
 				C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher */,
-				B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods-HomePage */,
+				B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods_HomePage.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -314,7 +314,6 @@
 				11CBC822F44F898767EC3A052E20EAA3 /* WormDrawer.swift */,
 				A02CCE9B2C8FF27BEE28E10DE0A2BAB4 /* Support Files */,
 			);
-			name = AdvancedPageControl;
 			path = AdvancedPageControl;
 			sourceTree = "<group>";
 		};
@@ -436,7 +435,6 @@
 				937E79173A3352E3DE0C5A143C7272FC /* WKInterfaceImage+Kingfisher.swift */,
 				360270E3320F6681C82D2B3145F82809 /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -496,7 +494,7 @@
 			);
 			name = "Pods-HomePage";
 			productName = Pods_HomePage;
-			productReference = B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods-HomePage */;
+			productReference = B3EF9E0D6C77B86BAD21DB44A2489F4E /* Pods_HomePage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		972CBE5FF7CFA3AE9901AC4608913BCF /* AdvancedPageControl */ = {
@@ -514,7 +512,7 @@
 			);
 			name = AdvancedPageControl;
 			productName = AdvancedPageControl;
-			productReference = 506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl */;
+			productReference = 506B7D3EB966A73FC92FFE914DCA0337 /* AdvancedPageControl.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E8022D22FAA6690B5E1C379C1BCE1491 /* Kingfisher */ = {

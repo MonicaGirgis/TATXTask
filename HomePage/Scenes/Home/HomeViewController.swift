@@ -19,6 +19,9 @@ class HomeViewController: UIViewController {
         case Line
     }
     
+    private var timer = Timer()
+    private var didUserScroll = false
+    private var counter = 0
     private var sections: [SectionHeaders] = []
     private var sectionsCountWithoutLinesCount: Int = 0
     private var data: HomeData?{
@@ -48,6 +51,24 @@ class HomeViewController: UIViewController {
         
         setupUI()
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func changeImage(){
+        guard !didUserScroll else {return}
+        if counter < 16{
+            counter += 1
+        }else{
+            counter = 0
+        }
+        if let cell = homeCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? HorizontalCollectionViewCell{
+            cell.scrollToIndex(index: counter)
+        }
     }
     
     private func setupUI(){
@@ -82,8 +103,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(section)
-        print(sectionsCountWithoutLinesCount)
         return (sections[section] == .Line && data?.result.main[section - sectionsCountWithoutLinesCount].viewType == "vertical") ? (data?.result.main[section - sectionsCountWithoutLinesCount].stores.count ?? 0) : 1
     }
     
@@ -92,6 +111,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .Ads:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalCollectionViewCell.self), for: indexPath) as! HorizontalCollectionViewCell
             cell.setData(section: .Ads, offers: data?.result.offers)
+            cell.didScroll = { [weak self] in
+                self?.didUserScroll = true
+            }
             return cell
         case .Categories:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalCollectionViewCell.self), for: indexPath) as! HorizontalCollectionViewCell
