@@ -13,23 +13,19 @@ enum APIError: Error {
     case invalidData
     case responseUnsuccessful
     case jsonParsingFailure
-    case message(value: GeneralErrorMessage)
     
     var localizedDescription: String {
         switch self {
         case .requestFailed:
-            return "Please check your connection and try again later".localized()
+            return "Please check your connection and try again later"
         case .invalidData:
-            return "Invalid Data".localized()
+            return "Invalid Data"
         case .responseUnsuccessful:
-            return "Response Unsuccessful".localized()
+            return "Response Unsuccessful"
         case .jsonParsingFailure:
-            return "JSON Parsing Failure".localized()
+            return "JSON Parsing Failure"
         case .jsonConversionFailure:
-            return "JSON Conversion Failure".localized()
-        case .message(let value):
-            guard let errorMessage = value.message else { return "No Error Message".localized()}
-            return errorMessage
+            return "JSON Conversion Failure"
         }
     }
 }

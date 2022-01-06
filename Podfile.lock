@@ -1,0 +1,20 @@
+PODS:
+  - AdvancedPageControl (0.9.0)
+  - Kingfisher (7.0.0)
+
+DEPENDENCIES:
+  - AdvancedPageControl
+  - Kingfisher (~> 7.0.0)
+
+SPEC REPOS:
+  trunk:
+    - AdvancedPageControl
+    - Kingfisher
+
+SPEC CHECKSUMS:
+  AdvancedPageControl: 39e3b32b00b2d324c534f8e17cc6c5be9abe84b7
+  Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
+
+PODFILE CHECKSUM: fcd9311fc91be0aa8dd620efedc3354bf6e19d06
+
+COCOAPODS: 1.11.2

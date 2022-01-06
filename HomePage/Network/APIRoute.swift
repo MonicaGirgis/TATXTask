@@ -9,14 +9,11 @@ import Foundation
 
 class APIRoute{
     
-    private class func initRequest(_ clientRequest:ProjectNetwork)->URLRequest? {
-        
-        var components = URLComponents(string: clientRequest.base)!
-        components.path = "/" + clientRequest.path
-        components.queryItems = clientRequest.queryItems
-        
-        guard let url = components.url else { return nil}
-        var request = URLRequest(url: url)
+    static let shared:APIRoute = APIRoute()
+    private init(){}
+    
+    private func initRequest(_ clientRequest:HomePage)->URLRequest? {
+        var request:URLRequest = clientRequest.request
         
         request.httpMethod = clientRequest.method.rawValue
         if clientRequest.body != nil{
@@ -27,28 +24,63 @@ class APIRoute{
         return request
     }
     
-    class func fetchRequest<T: Codable>(clientRequest: ProjectNetwork, decodingModel: T.Type, completion: @escaping (Result<T, Error>) -> ()){
-        
-        guard let urlRequest:URLRequest = APIRoute.initRequest(clientRequest) else {return}
-        
+    private func JSONTask<T:Decodable>(with request: URLRequest, decodingModel: T.Type, completion: @escaping (Result<T, APIError>)-> Void) -> URLSessionDataTask {
         let session = URLSession(configuration: .default)
-        let dataTask = session.dataTask(with: urlRequest) { data, response, error in
-            
-            if let error = error{
-                completion(.failure(error))
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.requestFailed))
                 return
             }
-            
-            guard response != nil, let data = data else { return}
-            var responseObject: T!
-            DispatchQueue.main.async {
-                do {
-                    responseObject = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(responseObject))
-                }catch let err{
-                    completion(.failure(err))
+    //            print("request url:\(String(describing: request.url)) with status code \(httpResponse.statusCode)")
+            switch httpResponse.statusCode {
+            case 200...204:
+                guard let data = data else {
+                    completion(.failure(.invalidData))
+                    return
                 }
+                
+                var responseModel:T!
+                do {
+                   // let json = try JSONSerialization.jsonObject(with: data, options: [])
+                   // guard JSONSerialization.isValidJSONObject(json) else {
+                   //     completion(.failure(.invalidData))
+                   //     return
+                   // }
+                    responseModel = try JSONDecoder().decode(T.self, from: data)
+                } catch let err {
+                    print("request url:\(String(describing: request.url)) with serialization error \(err)")
+                    
+                    completion(.failure(.jsonConversionFailure))
+                    return
+                }
+                completion(.success(responseModel))
+                
+            case 400...504:
+                guard let data = data else {
+                    completion(.failure(.invalidData))
+                    return
+                }
+                
+                completion(.failure(.responseUnsuccessful))
+                
+            default:
+                completion(.failure(.responseUnsuccessful))
             }
+        }
+        return task
+    }
+    
+    func fetchRequest<T: Codable>(clientRequest: HomePage, decodingModel: T.Type, completion: @escaping (Result<T, APIError>) -> ()){
+        
+        guard let urlRequest:URLRequest = self.initRequest(clientRequest) else {return}
+        
+        let dataTask = self.JSONTask(with: urlRequest, decodingModel: decodingModel.self) { (result) in
+            
+            DispatchQueue.main.async {
+                completion(result)
+            }
+            
+            
         }
         dataTask.resume()
     }
