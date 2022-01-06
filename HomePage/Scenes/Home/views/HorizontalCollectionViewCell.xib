@@ -32,9 +32,10 @@
                         </connections>
                     </collectionView>
                     <view contentMode="TopLeft" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="g0l-9R-UNH" customClass="AdvancedPageControlView" customModule="AdvancedPageControl">
-                        <rect key="frame" x="0.0" y="240" width="515" height="30"/>
+                        <rect key="frame" x="0.0" y="240" width="150" height="30"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="150" id="0U4-8A-gjb"/>
                             <constraint firstAttribute="height" constant="30" id="htg-Nu-3Dw"/>
                         </constraints>
                     </view>
@@ -47,9 +48,7 @@
                 <constraint firstItem="g0l-9R-UNH" firstAttribute="top" secondItem="g9R-tl-s3P" secondAttribute="bottom" id="Heb-km-t6A"/>
                 <constraint firstItem="g9R-tl-s3P" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Hq9-4X-WsP"/>
                 <constraint firstItem="g0l-9R-UNH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PgD-eZ-BLt"/>
-                <constraint firstAttribute="trailing" secondItem="g0l-9R-UNH" secondAttribute="trailing" id="VNQ-TS-n2r"/>
                 <constraint firstAttribute="bottom" secondItem="g0l-9R-UNH" secondAttribute="bottom" constant="16" id="WwU-Lm-hho"/>
-                <constraint firstItem="g0l-9R-UNH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="lad-9x-NAP"/>
             </constraints>
             <size key="customSize" width="515" height="286"/>
             <connections>

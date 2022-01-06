@@ -27,6 +27,7 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
     private func setupUI(){
         collectionView.register(UINib(nibName: String(describing: AdImageCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: AdImageCollectionViewCell.self))
         collectionView.register(UINib(nibName: String(describing: CategoryCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: CategoryCollectionViewCell.self))
+        pageController.semanticContentAttribute = .forceLeftToRight
     }
     
     func setData(section: HomeViewController.SectionHeaders, offers: [Offer]? = nil, categories: [Category]? = nil){
@@ -37,7 +38,7 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
         if count == 1{
             //pageController.isHidden = true
         }
-        pageController.drawer = ExtendedDotDrawer(numberOfPages: 17, height: 8,space: 4, indicatorColor: .yellow, dotsColor: .lightGray, isBordered: false, borderColor: .lightGray, borderWidth: 1, indicatorBorderColor: .yellow, indicatorBorderWidth: 1)
+        pageController.drawer = ExtendedDotDrawer(numberOfPages: count, height: 8,space: 4, indicatorColor: .yellow, dotsColor: .lightGray, isBordered: false, borderColor: .lightGray, borderWidth: 1, indicatorBorderColor: .yellow, indicatorBorderWidth: 1)
     }
     
     func scrollToIndex(index: Int){

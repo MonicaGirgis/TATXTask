@@ -10,10 +10,10 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     enum SectionHeaders{
+        case Search
         case Ads
         case Categories
         case Line
@@ -29,6 +29,8 @@ class HomeViewController: UIViewController {
             guard let data = data else {
                 return
             }
+            sections.append(.Search)
+            sectionsCountWithoutLinesCount+=1
             
             if !data.result.offers.isEmpty{
                 sections.append(.Ads)
@@ -76,10 +78,8 @@ class HomeViewController: UIViewController {
         homeCollectionView.register(UINib(nibName: String(describing: HorizontalCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: HorizontalCollectionViewCell.self))
         homeCollectionView.register(UINib(nibName: String(describing: StoreCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: StoreCollectionViewCell.self))
         homeCollectionView.register(UINib(nibName: String(describing: LinesCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: LinesCollectionViewCell.self))
+        homeCollectionView.register(UINib(nibName: String(describing: SearchCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: SearchCollectionViewCell.self))
         homeCollectionView.register(UINib(nibName: String(describing: HeaderCollectionReusableView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: HeaderCollectionReusableView.self))
-        searchBar.makeRoundedCornersWith(radius: 6.0)
-        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.backgroundColor = .white
     }
     
     private func fetchData(){
@@ -108,6 +108,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch sections[indexPath.section]{
+        case .Search:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SearchCollectionViewCell.self), for: indexPath) as! SearchCollectionViewCell
+            return cell
         case .Ads:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HorizontalCollectionViewCell.self), for: indexPath) as! HorizontalCollectionViewCell
             cell.setData(section: .Ads, offers: data?.result.offers)
@@ -153,10 +156,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch sections[indexPath.section]{
-        case .Ads:
+        case .Ads, .Categories:
             return CGSize(width: collectionView.frame.width, height: 200)
-        case .Categories:
-            return CGSize(width: collectionView.frame.width, height: 200)
+        case .Search:
+            return CGSize(width: collectionView.frame.width, height: 160)
         case .Line:
             guard data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].viewType == "vertical" else {
                 return CGSize(width: collectionView.frame.width, height: 330)
@@ -167,22 +170,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard sections[indexPath.section] != .Ads else { assert(false, "")}
-        
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: HeaderCollectionReusableView.self), for: indexPath) as? HeaderCollectionReusableView{
-            switch sections[indexPath.section]{
-            case .Categories:
-                sectionHeader.setData(title: "Shop by category")
-            default:
-                sectionHeader.setData(title: data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].titleEn ?? "")
-            }
+        let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: HeaderCollectionReusableView.self), for: indexPath) as! HeaderCollectionReusableView
+        switch sections[indexPath.section]{
+        case .Categories:
+            sectionHeader.setData(title: "Shop by category")
             return sectionHeader
+        case .Line:
+            sectionHeader.setData(title: data?.result.main[indexPath.section - sectionsCountWithoutLinesCount].titleEn ?? "")
+            return sectionHeader
+        default:
+            assert(false, "")
         }
-        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard sections[section] != .Ads else { return CGSize(width: collectionView.frame.width, height: 0)}
+        guard sections[section] != .Ads , sections[section] != .Search else { return CGSize(width: collectionView.frame.width, height: 0)}
         return CGSize(width: collectionView.frame.width, height: 48)
     }
 }
